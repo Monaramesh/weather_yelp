@@ -9,14 +9,11 @@ import { ReviewData } from 'src/app/models/review.model';
 })
 export class YelpReviewsComponent implements OnInit {
 
-  rating: number = 0;
   defaultProfileImage = "../../../assets/profile.png"
-  starCount: number = 5;
-  color: string = "warn";
-  
+
   reviewArray = new Array<ReviewData>();
-  business: string="";
-  businessLoc: string="";
+  business: string = "";
+  businessLoc: string = "";
   error: string = ""
 
   headerDict = {
@@ -32,7 +29,6 @@ export class YelpReviewsComponent implements OnInit {
   }
 
   getReviews(e: any) {
-    
     let responseObj;
     e.preventDefault();
     this.getYelpReviews().subscribe(
@@ -44,43 +40,36 @@ export class YelpReviewsComponent implements OnInit {
     )
   }
 
-
-  getBusinessReviews(id: string){
+  getBusinessReviews(id: string) {
     let resObj: any;
-    
-    this.http.get("https://corsanywhere.herokuapp.com/https://api.yelp.com/v3/businesses/"+id+"/reviews", this.requestOptions).subscribe(
-      res=>{
-        resObj =res;
+
+    this.http.get("https://corsanywhere.herokuapp.com/https://api.yelp.com/v3/businesses/" + id + "/reviews", this.requestOptions).subscribe(
+      res => {
+        resObj = res;
         console.log("Raw data", res);
         var revArray = new Array<ReviewData>();
-        for(var i=0;i<resObj.reviews.length;i++){
+        for (var i = 0; i < resObj.reviews.length; i++) {
           var review = new ReviewData();
-          
-          console.log("Response", resObj.reviews[i].text);
           review.name = resObj.reviews[i].user.name;
           review.reviewText = resObj.reviews[i].text;
           review.rating = resObj.reviews[i].rating;
-          review.date = resObj.reviews[i].time_created.slice(0,10);
+          review.date = resObj.reviews[i].time_created.slice(0, 10);
           review.imageurl = resObj.reviews[i].user.image_url;
-          console.log("Date", review.date);
           revArray.push(review);
           this.reviewArray = revArray;
-
         }
         console.log("Reviews", this.reviewArray);
-       
       }
     );
 
-
   }
   getYelpReviews(): Observable<any> {
-    if(!!this.businessLoc){
+    if (!!this.businessLoc) {
       this.error = "";
-     return this.http
-    .get("https://corsanywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term="+this.business+"&location="+this.businessLoc+"", this.requestOptions);
+      return this.http
+        .get("https://corsanywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=" + this.business + "&location=" + this.businessLoc + "", this.requestOptions);
     }
-    else{
+    else {
       this.error = "Location field is mandatory";
       return of(false);
     }

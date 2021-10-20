@@ -6,11 +6,11 @@
             <br>
         </form>
         <div>
-            <button mat-raised-button class="ga-width-100-per" color="primary" (click)="loadCurrentWeather($event)">
+            <button mat-raised-button class="ga-width-100-per" color="primary" (click)="getWeatherInfo($event,'weather')">
                 Get Current Weather
             </button>
         </div><br>
-        <div><button class="ga-width-100-per" mat-raised-button color="primary" (click)="loadForecastWeather($event)">
+        <div><button class="ga-width-100-per" mat-raised-button color="primary" (click)="getWeatherInfo($event,'forecast')">
                 Get 3 day forecast
             </button>
         </div>
@@ -19,19 +19,19 @@
         <mat-card class="card" *ngIf="showCurrent">
             <mat-card-content>
                 <mat-list>
-                    <mat-list-item> <strong class="labels">City</strong> : {{weatherData.cityName}}</mat-list-item>
+                    <mat-list-item> <strong class="labels">City</strong> : {{weatherData?.cityName}}</mat-list-item>
                     <mat-divider></mat-divider>
-                    <mat-list-item> <strong class="labels"> Temparature</strong> : {{weatherData.currentTemperature}}F
+                    <mat-list-item> <strong class="labels"> Temparature</strong> : {{weatherData?.currentTemperature}}F
                     </mat-list-item>
                     <mat-divider></mat-divider>
-                    <mat-list-item> <strong class="labels">Minimum Temperature</strong> : {{weatherData.minTemperature}}F
+                    <mat-list-item> <strong class="labels">Minimum Temperature</strong> : {{weatherData?.minTemperature}}F
                     </mat-list-item>
                     <mat-divider></mat-divider>
-                    <mat-list-item> <strong class="labels">Maximum Temperature</strong> : {{weatherData.maxTemperature}}F
+                    <mat-list-item> <strong class="labels">Maximum Temperature</strong> : {{weatherData?.maxTemperature}}F
                     </mat-list-item>
                     <mat-divider></mat-divider>
-                    <mat-list-item> <strong class="labels">Description</strong> : {{weatherData.description}}<span>
-                            <img src="http://openweathermap.org/img/w/{{weatherData.icon}}.png" alt="Site Logo"
+                    <mat-list-item> <strong class="labels">Description</strong> : {{weatherData?.description}}<span>
+                            <img src="http://openweathermap.org/img/w/{{weatherData?.icon}}.png" alt="Site Logo"
                                 width="50" height="50">
                         </span>
                     </mat-list-item>
@@ -46,16 +46,16 @@
             </div>
             <mat-tab-group color="primary">
                 <div *ngFor="let forecast of forecastData.details,let i=index">
-                    <mat-tab label="{{forecastData.details[i].date | date : 'mediumDate'}}">
+                    <mat-tab label="{{forecast.date | date : 'mediumDate'}}">
                         <mat-list>
-                            <mat-list-item> Minimum Temperature : {{forecastData.details[i].minTemperature}}F
+                            <mat-list-item> Minimum Temperature : {{forecast.minTemperature}}F
                             </mat-list-item>
                             <mat-divider></mat-divider>
-                            <mat-list-item> Maximum Temperature : {{forecastData.details[i].maxTemperature}}F
+                            <mat-list-item> Maximum Temperature : {{forecast.maxTemperature}}F
                             </mat-list-item>
                             <mat-divider></mat-divider>
-                            <mat-list-item> Description : {{forecastData.details[i].description}}<span>
-                                    <img src="http://openweathermap.org/img/w/{{forecastData.details[i].icon}}.png"
+                            <mat-list-item> Description : {{forecast.description}}<span>
+                                    <img src="http://openweathermap.org/img/w/{{forecast.icon}}.png"
                                         alt="Site Logo" width="50" height="50">
                                 </span> </mat-list-item>
                         </mat-list>
