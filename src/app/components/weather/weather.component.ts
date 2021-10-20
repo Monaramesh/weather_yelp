@@ -12,11 +12,10 @@ import { ForecastDetails } from 'src/app/models/forecastDetail.model';
 })
 export class WeatherComponent implements OnInit {
 
-  
-
   showForecast: boolean = false;
   showCurrent: boolean = false;
   zipError: boolean = false;
+  error: string = "";
   zip?: number;
   weatherData: WeatherData = new WeatherData();
   forecastData: ForecastData = new ForecastData();
@@ -32,8 +31,11 @@ export class WeatherComponent implements OnInit {
   */
   loadForecastWeather(e: any) {
     e.preventDefault();
+    if(!!this.zip){
     this.LoadForecastWeather(this.zip).subscribe(
       res => {
+        this.zipError = false;
+        this.error = "";
         console.log(res);
         this.forecastData.name = res.city.name;
         for (var i = 7; i < res.list.length; i = i + 11)//Since we need 3 days, we need to Jumps 8 times to get to next day.(A day contains 8 list of details)
@@ -49,15 +51,19 @@ export class WeatherComponent implements OnInit {
         }
         this.showCurrent = false;
         this.showForecast = true;
+      },
+      err=>{
+        this.error = "Invalid Zip Code";
+        this.zipError = true;
       }
     )
+    }
+    else{
+      this.zipError = true;
+      this.error = "Please enter Zip code"
+    }
     console.log(this.forecastData);
   }
-
-  // /**
-  // * This will subsrcibe from the publisher of the URL 
-  // * from the Forecast service which returns an observable.  
-  // */
 
   loadCurrentWeather(e: any) {
     e.preventDefault();
@@ -66,6 +72,7 @@ export class WeatherComponent implements OnInit {
       this.zipError = false;
       this.LoadCurrentWeather(this.zip).subscribe(
         res => {
+          this.error = "";
           this.weatherData.cityName = res.name;
           this.weatherData.description = res.weather[0].description;
           this.weatherData.currentTemperature = res.main.temp;
@@ -75,11 +82,16 @@ export class WeatherComponent implements OnInit {
           console.log(this.weatherData);
           this.showCurrent = true;
           this.showForecast = false;
+        },
+        err =>{
+          this.error = "Invalid Zip code";
+          this.zipError = true;
         }
       )
     }
     else {
       this.zipError = true;
+      this.error = "Please Enter zip code";
     }
 
   }

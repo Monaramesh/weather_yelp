@@ -1,8 +1,8 @@
 <div class="weatherbody">
     <div class="inputs">
         <form>
-            <input placeholder="Enter Zip Code" [(ngModel)]="zip" [ngModelOptions]="{standalone: true}"><br>
-            <span class="error" *ngIf="zipError">Please Enter the Zip Code</span>
+            <input matInput placeholder="Enter Zip Code" [(ngModel)]="zip" [ngModelOptions]="{standalone: true}"><br>
+            <span class="error" *ngIf="zipError">{{error}}</span>
             <br>
         </form>
         <div>
@@ -19,18 +19,18 @@
         <mat-card class="card" *ngIf="showCurrent">
             <mat-card-content>
                 <mat-list>
-                    <mat-list-item> <strong>City: </strong>{{weatherData.cityName}}</mat-list-item>
+                    <mat-list-item> <strong class="labels">City</strong> : {{weatherData.cityName}}</mat-list-item>
                     <mat-divider></mat-divider>
-                    <mat-list-item> <strong> Temparature</strong> : {{weatherData.currentTemperature}}F
+                    <mat-list-item> <strong class="labels"> Temparature</strong> : {{weatherData.currentTemperature}}F
                     </mat-list-item>
                     <mat-divider></mat-divider>
-                    <mat-list-item> <strong>Minimum Temperature</strong> : {{weatherData.minTemperature}}F
+                    <mat-list-item> <strong class="labels">Minimum Temperature</strong> : {{weatherData.minTemperature}}F
                     </mat-list-item>
                     <mat-divider></mat-divider>
-                    <mat-list-item> <strong>Maximum Temperature</strong> : {{weatherData.maxTemperature}}F
+                    <mat-list-item> <strong class="labels">Maximum Temperature</strong> : {{weatherData.maxTemperature}}F
                     </mat-list-item>
                     <mat-divider></mat-divider>
-                    <mat-list-item> <strong>Description</strong> : {{weatherData.description}}<span>
+                    <mat-list-item> <strong class="labels">Description</strong> : {{weatherData.description}}<span>
                             <img src="http://openweathermap.org/img/w/{{weatherData.icon}}.png" alt="Site Logo"
                                 width="50" height="50">
                         </span>
