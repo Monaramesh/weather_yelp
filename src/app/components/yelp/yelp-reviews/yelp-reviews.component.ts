@@ -10,6 +10,7 @@ import { ReviewData } from 'src/app/models/review.model';
 export class YelpReviewsComponent implements OnInit {
 
   rating: number = 0;
+  defaultProfileImage = "../../../assets/profile.png"
   starCount: number = 5;
   color: string = "warn";
   
@@ -58,6 +59,7 @@ export class YelpReviewsComponent implements OnInit {
           review.rating = resObj.reviews[i].rating;
           review.date = resObj.reviews[i].time_created;
           review.imageurl = resObj.reviews[i].user.image_url;
+          console.log("RATING", review.rating);
           this.reviewArray.push(review);
 
         }

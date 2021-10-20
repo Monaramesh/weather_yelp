@@ -8,14 +8,16 @@
 </form>
 </div>
 <div class="reviews">
-    <div *ngFor="let review of reviewArray">
+    <div class="reviewslist" *ngFor="let review of reviewArray">
       <mat-card class="example-card">
         <mat-card-title-group>
           <mat-card-title>{{review.name}}</mat-card-title>
-          <mat-card-subtitle>
-            <ngb-rating [max]="5" [rate]="5" [readonly]="true"></ngb-rating>
+          <mat-card-subtitle class="rating">
+            <ngb-rating *ngIf="review.rating" [max]="5" [rate]="review.rating" [readonly]="true"></ngb-rating>
            </mat-card-subtitle> 
-          <img mat-card-md-image src="{{review.imageurl}}" >
+          <img mat-card-md-image *ngIf="review.imageurl" src="{{review.imageurl}}" >
+          <img mat-card-md-image *ngIf="!review.imageurl" src="{{defaultProfileImage}}" >
+
         </mat-card-title-group>
         <mat-card-content>
           {{review.reviewText}}
