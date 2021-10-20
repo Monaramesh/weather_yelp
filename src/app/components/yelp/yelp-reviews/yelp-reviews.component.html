@@ -1,0 +1,25 @@
+
+<div class="inputs">
+    <form>
+    <input placeholder="Enter the business" [(ngModel)]="business" name="businessname"><br><br>
+    <input placeholder="Enter the location" [(ngModel)]="businessLoc" name="businessloc"><br><br>
+
+    <button mat-raised-button color="primary" (click)="getReviews($event)">Yelp reviews</button>
+</form>
+</div>
+<div class="reviews">
+    <div *ngFor="let review of reviewArray">
+      <mat-card class="example-card">
+        <mat-card-title-group>
+          <mat-card-title>{{review.name}}</mat-card-title>
+          <mat-card-subtitle>
+            <ngb-rating [max]="5" [rate]="5" [readonly]="true"></ngb-rating>
+           </mat-card-subtitle> 
+          <img mat-card-md-image src="{{review.imageurl}}" >
+        </mat-card-title-group>
+        <mat-card-content>
+          {{review.reviewText}}
+        </mat-card-content>
+      </mat-card>
+    </div>
+</div>

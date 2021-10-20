@@ -1,0 +1,11 @@
+mat-toolbar{
+    font-weight: bolder;
+    font-size: 18px;
+    text-align: center;
+    padding: 15px;
+    display: inline-block;
+}
+
+.container{
+    padding: 10px;
+}

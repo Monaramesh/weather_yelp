@@ -1,0 +1,22 @@
+.weatherbody{
+    display: flex;
+    justify-self: center;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    /* background-image: url('../../../assets/weather.jpg'); */
+    
+}
+
+.error{
+    font-style: italic;
+    color: red ;
+    font-size: 12px;
+}
+.buttons{
+    display: block;
+}
+
+.card{
+    text-align: center;
+}
