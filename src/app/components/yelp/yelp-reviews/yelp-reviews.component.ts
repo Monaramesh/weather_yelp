@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ReviewData } from 'src/app/models/review.model';
 @Component({
@@ -17,6 +17,7 @@ export class YelpReviewsComponent implements OnInit {
   reviewArray = new Array<ReviewData>();
   business: string="";
   businessLoc: string="";
+  error: string = ""
 
   headerDict = {
     'Authorization': 'Bearer 9ejLORKsQnr8xFJrWV8rQmRx0HQV_G443_wXMtTxy9NAYsBsgvxe6zMUwIQFfOdhNafiYX23Nyelv3PhRaNWnht2ETt8rzlCXoEHL9s38J8MoLMfJ2YcTAaHqAxuYXYx',
@@ -51,16 +52,19 @@ export class YelpReviewsComponent implements OnInit {
       res=>{
         resObj =res;
         console.log("Raw data", res);
+        var revArray = new Array<ReviewData>();
         for(var i=0;i<resObj.reviews.length;i++){
           var review = new ReviewData();
+          
           console.log("Response", resObj.reviews[i].text);
           review.name = resObj.reviews[i].user.name;
           review.reviewText = resObj.reviews[i].text;
           review.rating = resObj.reviews[i].rating;
-          review.date = resObj.reviews[i].time_created;
+          review.date = resObj.reviews[i].time_created.slice(0,10);
           review.imageurl = resObj.reviews[i].user.image_url;
-          console.log("RATING", review.rating);
-          this.reviewArray.push(review);
+          console.log("Date", review.date);
+          revArray.push(review);
+          this.reviewArray = revArray;
 
         }
         console.log("Reviews", this.reviewArray);
@@ -71,17 +75,15 @@ export class YelpReviewsComponent implements OnInit {
 
   }
   getYelpReviews(): Observable<any> {
-    let resObj : any;
-    let id;
+    if(!!this.businessLoc){
+      this.error = "";
      return this.http
-    .get("https://corsanywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term="+this.business+"&location="+this.businessLoc+"", this.requestOptions)
-    // .subscribe((res)=>{
-    //   resObj = res;
-    //   id = resObj.businesses[0].id;
-    //   console.log(id);
-    //   //return this.http.get("https://corsanywhere.herokuapp.com/https://api.yelp.com/v3/businesses/"+id+"/reviews", this.requestOptions);
-    // })
-  // return this.http.get("https://corsanywhere.herokuapp.com/https://api.yelp.com/v3/businesses/"+id+"/reviews", this.requestOptions);
+    .get("https://corsanywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term="+this.business+"&location="+this.businessLoc+"", this.requestOptions);
+    }
+    else{
+      this.error = "Location field is mandatory";
+      return of(false);
+    }
 
   }
 

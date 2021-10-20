@@ -4,4 +4,17 @@
 .rating{
     color: orange;
 }
-
+.date{
+    color: black;
+}
+h3{
+    background-color: lightsteelblue;
+    text-align: center;
+    font-weight: bold;
+    
+}
+.error{
+    font-style: italic;
+    color: red ;
+    font-size: 12px;
+}
