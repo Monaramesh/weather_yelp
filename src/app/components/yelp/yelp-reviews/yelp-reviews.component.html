@@ -16,8 +16,8 @@
           <ngb-rating *ngIf="review.rating" [max]="5" [rate]="review.rating" [readonly]="true"></ngb-rating>
           <p class="date">{{review.date}}</p>
         </mat-card-subtitle>
-        <img mat-card-md-image *ngIf="review.imageurl" src="{{review.imageurl}}">
-        <img mat-card-md-image *ngIf="!review.imageurl" src="{{defaultProfileImage}}">
+        <img mat-card-md-image *ngIf="review.imageurl" src="{{review.imageurl}}" alt="customerProfile">
+        <img mat-card-md-image *ngIf="!review.imageurl" src="{{defaultProfileImage}}" alt="customerProfile">
 
       </mat-card-title-group>
       <mat-card-content>
