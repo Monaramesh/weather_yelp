@@ -20,7 +20,7 @@ export class WeatherForecastService {
         context.loadForecast(res);
       }
     }, err => {
-      if (type == 'weather'){
+      if (type == 'forecast'){
         context.loadCurrentWeather(undefined, err)
       }
       else{
